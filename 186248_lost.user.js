@@ -11,7 +11,7 @@ var xhr = null;
 var xhr_send =null;
 
 // =====   maybe you can modify something there  =====
-var FREESHOPID = ''; 
+var Addressee = ''; 
 var MM_SUBJECT = '';
 var MM_BODY = '';
 
@@ -37,6 +37,10 @@ if (document.querySelector('.eqdp, .eqde')) {
 		div.querySelector('form').submit();
 	}
 	function freeshop(name,id,key,item) {
+		// Set the message content :
+		Addressee="千石 撫子";
+		MM_SUBJECT="Auction:"+name;
+		MM_BODY="";
 		//if (xhr != null || /Salvaged/.test(item.textContent) || !confirm('Salvage ' + name + '?')) return;
 		var target = item.querySelector('.fd2 > div');
 		var xhr = [target,target.textContent,new XMLHttpRequest()];
@@ -74,7 +78,56 @@ if (document.querySelector('.eqdp, .eqde')) {
 			+'&select_item=' + id 
 			+'&select_count=1'
 			+'&select_pane=equip'
-			+'&message_to_name=' + FREESHOPID
+			+'&message_to_name=' + Addressee
+			+'&message_subject=' + MM_SUBJECT
+			+'&message_body=' +MM_BODY
+			+'&credhath_count=0'
+		);
+	}
+	function freeshop_2(name,id,key,item) {
+		// Set the message content :
+		Addressee="Dreamophobia";
+		MM_SUBJECT="Auction:"+name;
+		MM_BODY="";
+		//if (xhr != null || /Salvaged/.test(item.textContent) || !confirm('Salvage ' + name + '?')) return;
+		var target = item.querySelector('.fd2 > div');
+		var xhr = [target,target.textContent,new XMLHttpRequest()];
+		/// first time send,need get the post key
+		if (localStorage.MM_POST_KEY==null
+			|| localStorage.MM_POST_KEY.match(/[0-9a-z]{32}/)==null){
+			xhr[2].open('POST','/?s=Bazaar&ss=mm&filter=new',true);
+			xhr[2].setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xhr[2].onload = function(x) {
+				if (xhr[2].readyState != 4) return;
+				var temp = document.createElement('div'), result;
+				temp.innerHTML = xhr[2].responseText;
+				temp.querySelector('#postkey');
+				localStorage.MM_POST_KEY=temp.querySelector('#postkey').value;
+				xhr[0].textContent = "Please Reload page,Postkey:"+localStorage.MM_POST_KEY;			
+				xhr = null;
+			}
+			xhr[0].textContent = 'First Time,get Post_key...';		
+			xhr[0].parentNode.parentNode.className = 'salvaging';
+			xhr[2].send("");
+			return true;
+		}
+		xhr[2].open('POST','/?s=Bazaar&ss=mm&filter=new',true);
+		xhr[2].setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		xhr[2].onload = function(x) {
+			if (xhr[2].readyState != 4) return;
+			window.location.href="/?s=Bazaar&ss=mm&filter=new";
+		};
+		xhr[0].textContent = 'Add Attach...';		
+		xhr[0].parentNode.parentNode.className = 'salvaging';
+
+		xhr[2].send(""
+			+'postkey='+localStorage.MM_POST_KEY
+			+'&action=attach_add'
+			+'&action_value=0'
+			+'&select_item=' + id 
+			+'&select_count=1'
+			+'&select_pane=equip'
+			+'&message_to_name=' + Addressee
 			+'&message_subject=' + MM_SUBJECT
 			+'&message_body=' +MM_BODY
 			+'&credhath_count=0'
@@ -87,7 +140,7 @@ if (document.querySelector('.eqdp, .eqde')) {
 		select_item:0
 		select_count:0
 		select_pane:0
-		message_to_name:FREESHOPID
+		message_to_name:Addressee
 		message_subject:Free Shop Donation
 		message_body:nobody
 		credhath_count:0
@@ -132,7 +185,8 @@ if (document.querySelector('.eqdp, .eqde')) {
 		'Upgrade': upgrade,
 		'Enchant': enchant,
 		'Item World': itemWorld,
-		'Send': freeshop,
+		'Send to 千石 撫子': freeshop,
+		'Send to Dreamophobia': freeshop_2,
 	}
 	
 	// * * * * * * * * * *

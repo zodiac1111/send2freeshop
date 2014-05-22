@@ -40,7 +40,7 @@ if (document.querySelector('.eqdp, .eqde')) {
 		// Set the message content :
 		Addressee="千石 撫子";
 		MM_SUBJECT="Auction:"+name;
-		MM_BODY="";
+		MM_BODY='[url=http://hentaiverse.org/pages/showequip.php?eid='+id+'&key='+key+']'+name+'[/url]';
 		//if (xhr != null || /Salvaged/.test(item.textContent) || !confirm('Salvage ' + name + '?')) return;
 		var target = item.querySelector('.fd2 > div');
 		var xhr = [target,target.textContent,new XMLHttpRequest()];
@@ -88,7 +88,7 @@ if (document.querySelector('.eqdp, .eqde')) {
 		// Set the message content :
 		Addressee="Dreamophobia";
 		MM_SUBJECT="Auction:"+name;
-		MM_BODY="";
+		MM_BODY='[url=http://hentaiverse.org/pages/showequip.php?eid='+id+'&key='+key+']'+name+'[/url]';
 		//if (xhr != null || /Salvaged/.test(item.textContent) || !confirm('Salvage ' + name + '?')) return;
 		var target = item.querySelector('.fd2 > div');
 		var xhr = [target,target.textContent,new XMLHttpRequest()];

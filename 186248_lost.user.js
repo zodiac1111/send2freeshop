@@ -79,8 +79,8 @@ if (document.querySelector('.eqdp, .eqde')) {
 			+'&select_count=1'
 			+'&select_pane=equip'
 			+'&message_to_name=' + Addressee
-			+'&message_subject=' + MM_SUBJECT
-			+'&message_body=' +MM_BODY
+			+'&message_subject=' +escape(MM_SUBJECT)
+			+'&message_body=' + escape(MM_BODY)
 			+'&credhath_count=0'
 		);
 	}
@@ -128,8 +128,8 @@ if (document.querySelector('.eqdp, .eqde')) {
 			+'&select_count=1'
 			+'&select_pane=equip'
 			+'&message_to_name=' + Addressee
-			+'&message_subject=' + MM_SUBJECT
-			+'&message_body=' +MM_BODY
+			+'&message_subject=' + escape(MM_SUBJECT)
+			+'&message_body=' +escape(MM_BODY)
 			+'&credhath_count=0'
 		);
 	}

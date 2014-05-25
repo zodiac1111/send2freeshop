@@ -28,6 +28,13 @@ if (document.querySelector('.eqdp, .eqde')) {
 		div.querySelector('form').submit();
 	}
 	
+	/**
+	 * 装备品质 : 
+	 * Average 
+	 * Superior 
+	 * 
+	 */
+	 // 分解掉指定品质的装备
 	function salvageAll(name,id,key,item) {
 		if (xhr != null || !confirm('Salvage **E+**?')) return;
 		var itemList=document.getElementById("item_pane").getElementsByClassName("eqdp");
@@ -35,7 +42,38 @@ if (document.querySelector('.eqdp, .eqde')) {
 			var currentItem=itemList[i];
 			var data = currentItem.getAttribute('onmouseover');
 			var temp = data.match(/equips.set\((\d+),\s?'(.+?)'\)/);
-			var quality = data;
+			var name = data.match(/'[^']+'/g)[1].slice(1,-1), id = temp[1], key = temp[2];
+			salvage(name,id,key,currentItem);
+		}
+	}
+	/// 分解所有Superior级别
+	function salvageAllSuperior(name,id,key,item) {
+		if (xhr != null || !confirm('Salvage ALL Superior ?')) return;
+		var itemList=document.getElementById("item_pane").getElementsByClassName("eqdp");
+		for(i=0;i<itemList.length;i++){
+			var currentItem=itemList[i];
+			var data = currentItem.getAttribute('onmouseover');
+			var temp = data.match(/equips.set\((\d+),\s?'(.+?)'\)/);
+			var quality =  data.match(/Superior/); ///指定的品质
+			if (quality==null) {
+				continue;
+			}
+			var name = data.match(/'[^']+'/g)[1].slice(1,-1), id = temp[1], key = temp[2];
+			salvage(name,id,key,currentItem);
+		}
+	}
+	/// 分解所有Exquisite级别
+	function salvageAllExquisite(name,id,key,item) {
+		if (xhr != null || !confirm('Salvage ALL Exquisite ?')) return;
+		var itemList=document.getElementById("item_pane").getElementsByClassName("eqdp");
+		for(i=0;i<itemList.length;i++){
+			var currentItem=itemList[i];
+			var data = currentItem.getAttribute('onmouseover');
+			var temp = data.match(/equips.set\((\d+),\s?'(.+?)'\)/);
+			var quality =  data.match(/Exquisite/); ///指定的品质
+			if (quality==null) {
+				continue;
+			}
 			var name = data.match(/'[^']+'/g)[1].slice(1,-1), id = temp[1], key = temp[2];
 			salvage(name,id,key,currentItem);
 		}
@@ -101,7 +139,9 @@ if (document.querySelector('.eqdp, .eqde')) {
 		'Upgrade': upgrade,
 		'Enchant': enchant,
 		'Item World': itemWorld,
-		'Salvage ALL E+': salvageAll
+		'Salvage ALL': salvageAll,
+		'Salvage ALL Superior': salvageAllSuperior,
+		'Salvage ALL Exquisite': salvageAllExquisite
 	}
 	
 	// * * * * * * * * * *
@@ -180,17 +220,21 @@ if (document.querySelector('.eqdp, .eqde')) {
 
 		if (document.evaluate('ancestor::div[@id="shop_pane"]',currentItem,null,9,null).singleNodeValue){
 			hideMenu('Salvage','Upgrade','Enchant','Item World');
-			hideMenu('Salvage ALL E+');
+			hideMenu('Salvage ALL');
+			hideMenu('Salvage ALL Superior');
+			hideMenu('Salvage ALL Exquisite');
 		}
 			
 		if (currentItem.id == 'slot_pane'){
-			hideMenu('Salvage');
-			hideMenu('Salvage ALL E+');
+			hideMenu('Salvage ALL');
+			hideMenu('Salvage ALL Superior');
+			hideMenu('Salvage ALL Exquisite');
 		}
 			
 		if (document.evaluate('ancestor::div[starts-with(@class,"eqp")][1]//img[contains(@src,"_closed.png")]',currentItem,null,9,null).singleNodeValue){
-			hideMenu('Salvage');
-			hideMenu('Salvage ALL E+');
+			hideMenu('Salvage ALL');
+			hideMenu('Salvage ALL Superior');
+			hideMenu('Salvage ALL Exquisite');
 		}
 			
 		menu.style.top = (e.clientY+2) + 'px';

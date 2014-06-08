@@ -84,7 +84,7 @@ if (document.querySelector('.eqdp, .eqde')) {
 		
 		var target = item.querySelector('.fd2 > div');
 		var xhr = [target,target.textContent,new XMLHttpRequest()];
-		xhr[2].open('POST','/?s=Bazaar&ss=fr&filter=' + getType(name),true);
+		xhr[2].open('POST','/?s=Forge&ss=sa&filter=' + getType(name),true);
 		xhr[2].setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 		xhr[2].onload = function(x) {
 		

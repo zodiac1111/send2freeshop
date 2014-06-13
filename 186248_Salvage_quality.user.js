@@ -2,6 +2,7 @@
 // @name           HV - Item Menu (Salvage quality)
 // @namespace      HVIM 
 // @match          http://hentaiverse.org/*
+// @match          http://alt.hentaiverse.org/*
 // @description	   鼠标中键物品快捷菜单
 // @run-at         document-end
 // ==/UserScript==
@@ -81,14 +82,16 @@ if (document.querySelector('.eqdp, .eqde')) {
 	
 		/// 分解所有AV 级别
 	function salvageAll_Average(name,id,key,item) {
-		if (xhr != null || !confirm('Salvage ALL Superior ?')) return;
+		//if (xhr != null || !confirm('Salvage ALL Superior ?')) return;
 		var itemList=document.getElementById("item_pane").getElementsByClassName("eqdp");
 		for(i=0;i<itemList.length;i++){
 			var currentItem=itemList[i];
 			var data = currentItem.getAttribute('onmouseover');
 			var temp = data.match(/equips.set\((\d+),\s?'(.+?)'\)/);
-			var quality =  data.match(/Average/); ///指定的品质
-			if (quality==null) {
+			var quality1 =  data.match(/Crude/); ///指定的品质
+			var quality2 =  data.match(/Fair/); ///指定的品质
+			var quality3 =  data.match(/Average/); ///指定的品质
+			if (quality1==null && quality2==null && quality3==null) {
 				continue;
 			}
 			var name = data.match(/'[^']+'/g)[1].slice(1,-1), id = temp[1], key = temp[2];
@@ -190,9 +193,9 @@ if (document.querySelector('.eqdp, .eqde')) {
 		'Enchant': enchant,
 		'Item World': itemWorld,
 		'Salvage ALL': salvageAll,
-		'Salvage ALL Crude': salvageAll_Crude,
-		'Salvage ALL Fair': salvageAll_Fair,
-		'Salvage ALL Average': salvageAll_Average,		
+		//'Salvage ALL Crude': salvageAll_Crude,
+		//'Salvage ALL Fair': salvageAll_Fair,
+		'Salvage ALL Average 以下': salvageAll_Average,		
 		'Salvage ALL Superior': salvageAllSuperior,
 		'Salvage ALL Exquisite': salvageAllExquisite
 	}

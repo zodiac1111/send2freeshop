@@ -148,7 +148,7 @@ if (document.querySelector('.eqdp, .eqde')) {
 			
 			var message = temp.querySelector('#messagebox');
 			if (message) {
-				var results = temp.querySelector('#messagebox .cmb6:last-child').textContent.trim();
+				//var results = temp.querySelector('#messagebox .cmb6:last-child').textContent.trim();
 				// 所有结果,包括标题
 				var res = temp.querySelectorAll('#messagebox .cmb6 .fd2');
 				result='Salvaged:';

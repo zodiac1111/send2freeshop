@@ -56,8 +56,19 @@ if (document.querySelector('.eqdp, .eqde')) {
 			
 			var message = temp.querySelector('#messagebox');
 			if (message) {
-				var results = temp.querySelector('#messagebox .cmb6:last-child').textContent.trim();
-				result = 'Salvaged: ' + ( /No usable/.test(results) ? ' no usable materials ' : results.replace(/^Salvaged\s/,'') );
+				//var results = temp.querySelector('#messagebox .cmb6:last-child').textContent.trim();
+				// 所有结果,包括标题
+				var res = temp.querySelectorAll('#messagebox .cmb6 .fd2');
+				result='Salvaged:';
+				for(i=1;i<res.length;i++){
+					result+=	res[i].textContent.trim().replace(/^Salvaged\s/,'');
+					if(i<res.length-1){
+						result+=",";
+					}
+				}
+				if(res.length<=1){
+					result='Salvaged: no usable materials ';
+				}	
 			} else {
 				xhr[0].parentNode.parentNode.removeAttribute('class');
 				result = xhr[1]

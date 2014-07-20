@@ -3,6 +3,7 @@
 // @namespace      HVS2FS 
 // @match          http://hentaiverse.org/*
 // @match          http://alt.hentaiverse.org/*
+// @version		1.0.1
 // @description    Send to FreeShop at Equipment Shop Screen. base on "HV - Item Menu" .Press Middle mouse button,Move to 'Send to Freeshop',Release  Middle mouse button.
 // @run-at         document-end
 // ==/UserScript==
